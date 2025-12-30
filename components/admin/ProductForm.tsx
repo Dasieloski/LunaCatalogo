@@ -53,9 +53,15 @@ export default function ProductForm({ product, onSave, onCancel }: ProductFormPr
         body: formData,
       })
 
-      const data = await response.json()
+      const data = await response.json().catch(() => ({} as any))
+      if (!response.ok) {
+        alert(data?.error || 'Error al subir imagen')
+        return
+      }
       if (data.success) {
         setFormData(prev => ({ ...prev, image: data.filename }))
+      } else {
+        alert(data?.error || 'Error al subir imagen')
       }
     } catch (error) {
       alert('Error al subir imagen')
