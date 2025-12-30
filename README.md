@@ -98,6 +98,22 @@ npm run db:seed
 3. Previsualiza el catálogo en `/catalog`
 4. Exporta a PDF desde el panel de administración
 
+## PDF en Vercel (IMPORTANTE)
+
+En algunos runtimes serverless de Vercel, **Chromium no puede arrancar** por librerías del sistema faltantes (ej. `libnss3.so`).  
+Eso **no se puede arreglar instalando paquetes del sistema** en Vercel.
+
+### Solución recomendada (funciona siempre): Chrome remoto (Browserless)
+
+1. Crea una cuenta en Browserless (o un proveedor de Chrome remoto compatible).
+2. Copia tu **WebSocket endpoint** (wss://...).
+3. En Vercel → Project → Settings → Environment Variables agrega:
+   - **BROWSERLESS_WS_ENDPOINT**: ejemplo `wss://chrome.browserless.io?token=TU_TOKEN`
+   - (Opcional) **BROWSERLESS_TOKEN**: si tu endpoint NO incluye `token=...`
+4. Redeploy.
+
+El endpoint `/api/export-pdf` intentará lanzar Chromium localmente; si falla por librerías faltantes, se conectará al Chrome remoto.
+
 ## Credenciales por defecto
 
 Usuario: `admin`

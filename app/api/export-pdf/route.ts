@@ -18,35 +18,51 @@ export async function GET(request: NextRequest) {
     const browserlessToken = process.env.BROWSERLESS_TOKEN || ""
 
     const isVercel = !!process.env.VERCEL
+
     const browser = await (async () => {
-      // Primary Vercel strategy (what you asked for):
-      // puppeteer-core + @sparticuz/chromium (serverless Chromium)
-      if (isVercel) {
+      // Local dev:
+      if (!isVercel) {
+        const puppeteerMod = await import("puppeteer")
+        const pptr = (puppeteerMod as any).default ?? puppeteerMod
+        return pptr.launch({
+          headless: "new",
+          args: [
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-gpu",
+          ],
+        })
+      }
+
+      // Vercel: try puppeteer-core + @sparticuz/chromium first (as requested).
+      try {
         const puppeteerCore = await import("puppeteer-core")
         const chromiumMod = await import("@sparticuz/chromium")
         const chromium = (chromiumMod as any).default ?? chromiumMod
         const pptr = (puppeteerCore as any).default ?? puppeteerCore
 
-        return pptr.launch({
+        return await pptr.launch({
           args: chromium.args,
           defaultViewport: chromium.defaultViewport,
           executablePath: await chromium.executablePath(),
           headless: chromium.headless,
         })
-      }
+      } catch (e) {
+        // If Chromium can't launch due to missing shared libs on Vercel (libnss3.so),
+        // fall back to remote Chrome (Browserless) when configured.
+        if (!browserlessWs) throw e
 
-      // Local dev:
-      const puppeteerMod = await import("puppeteer")
-      const pptr = (puppeteerMod as any).default ?? puppeteerMod
-      return pptr.launch({
-        headless: "new",
-        args: [
-          "--no-sandbox",
-          "--disable-setuid-sandbox",
-          "--disable-dev-shm-usage",
-          "--disable-gpu",
-        ],
-      })
+        const puppeteerCore = await import("puppeteer-core")
+        const pptr = (puppeteerCore as any).default ?? puppeteerCore
+
+        let ws = browserlessWs
+        if (browserlessToken && !ws.includes("token=")) {
+          ws += (ws.includes("?") ? "&" : "?") + `token=${encodeURIComponent(browserlessToken)}`
+        }
+
+        return pptr.connect({ browserWSEndpoint: ws })
+      }
     })()
     
     const page = await browser.newPage()
@@ -155,7 +171,7 @@ export async function GET(request: NextRequest) {
             : "Error al generar PDF",
         hint:
           process.env.VERCEL
-            ? "Si sigue fallando con libnss3.so en Vercel, cambia el runtime a Node 22 (AWS_LAMBDA_JS_RUNTIME=nodejs22.x) o usa Browserless."
+            ? "Vercel puede fallar lanzando Chromium por librerías faltantes (libnss3.so). Solución: configura BROWSERLESS_WS_ENDPOINT (y opcionalmente BROWSERLESS_TOKEN) para usar Chrome remoto; o cambia el runtime (AWS_LAMBDA_JS_RUNTIME=nodejs22.x) si tu proyecto lo soporta."
             : undefined,
       },
       { status: 500 }
