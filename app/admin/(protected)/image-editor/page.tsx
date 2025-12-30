@@ -226,7 +226,7 @@ export default function ImageEditorPage() {
     <div>
       <h1 className="admin-page-title">🖼️ Editor de Imágenes</h1>
 
-      <div style={{ display: "grid", gridTemplateColumns: "minmax(280px, 420px) 1fr", gap: "1.5rem" }}>
+      <div className="admin-split-grid">
         <div className="admin-card" style={{ position: "sticky", top: "96px", height: "fit-content" }}>
           <h2 className="admin-card-title">📝 Información del Producto</h2>
 

@@ -932,6 +932,26 @@
 }
 
 /* ============================================
+   LAYOUT HELPERS (RESPONSIVE)
+   ============================================ */
+.admin-form-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.admin-split-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 420px) 1fr;
+  gap: 1.5rem;
+}
+
+.admin-city-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+  gap: 1rem;
+  align-items: end;
+}
+
+/* ============================================
    TABS
    ============================================ */
 .admin-tabs {
@@ -1050,6 +1070,14 @@
   }
 
   .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-split-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-city-row {
     grid-template-columns: 1fr;
   }
 

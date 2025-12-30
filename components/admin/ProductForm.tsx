@@ -144,7 +144,7 @@ export default function ProductForm({ product, onSave, onCancel }: ProductFormPr
         />
       </div>
 
-      <div className="admin-form-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+      <div className="admin-form-grid admin-form-grid-3">
         <div className="admin-form-group">
           <label className="admin-form-label">Precio Contenedor *</label>
           <input

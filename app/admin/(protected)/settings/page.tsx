@@ -264,15 +264,7 @@ export default function SettingsPage() {
 
         <div style={{ marginTop: "1rem", display: "grid", gap: "1rem" }}>
           {(data.nationalDelivery?.cities || []).map((city, index) => (
-            <div
-              key={index}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(2, minmax(0, 1fr)) auto",
-                gap: "1rem",
-                alignItems: "end",
-              }}
-            >
+            <div key={index} className="admin-city-row">
               <div className="admin-form-group" style={{ marginBottom: 0 }}>
                 <label className="admin-form-label">Ciudad</label>
                 <input
