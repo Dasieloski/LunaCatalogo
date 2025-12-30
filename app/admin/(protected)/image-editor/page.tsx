@@ -12,6 +12,7 @@ export default function ImageEditorPage() {
   const [priceBox, setPriceBox] = useState("")
   const [whatsapp, setWhatsapp] = useState("")
   const [available, setAvailable] = useState(true)
+  const [removeWhiteBg] = useState(true)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [catalogData, setCatalogData] = useState<any>(null)
 
@@ -49,7 +50,8 @@ export default function ImageEditorPage() {
     canvas.width = canvasSize
     canvas.height = canvasSize
 
-    const backgroundColor = "#e0e7ff"
+    // Fondo final (el que tú pediste)
+    const backgroundColor = "#e3e3e2"
     ctx.fillStyle = backgroundColor
     ctx.fillRect(0, 0, canvasSize, canvasSize)
 
@@ -72,7 +74,50 @@ export default function ImageEditorPage() {
       ctx.save()
       ctx.imageSmoothingEnabled = true
       ctx.imageSmoothingQuality = "high"
-      ctx.drawImage(img, imgX, imgY, scaledWidth, scaledHeight)
+      if (removeWhiteBg) {
+        // Quita fondo blanco (chroma key simple) y deja ver el fondo #e3e3e2.
+        const off = document.createElement("canvas")
+        off.width = Math.max(1, Math.floor(scaledWidth))
+        off.height = Math.max(1, Math.floor(scaledHeight))
+        const octx = off.getContext("2d", { willReadFrequently: true })
+        if (octx) {
+          octx.imageSmoothingEnabled = true
+          octx.imageSmoothingQuality = "high"
+          octx.drawImage(img, 0, 0, off.width, off.height)
+
+          const imageData = octx.getImageData(0, 0, off.width, off.height)
+          const d = imageData.data
+          // Ajustes: si tu blanco no es puro, sube/baja estos valores.
+          const minBright = 245 // 0..255
+          const maxSpread = 18 // diferencia entre canal max y min
+
+          for (let i = 0; i < d.length; i += 4) {
+            const r = d[i]!
+            const g = d[i + 1]!
+            const b = d[i + 2]!
+            const a = d[i + 3]!
+            if (a === 0) continue
+
+            const max = Math.max(r, g, b)
+            const min = Math.min(r, g, b)
+            const bright = (r + g + b) / 3
+            const spread = max - min
+
+            // Detecta "casi blanco" uniforme y lo hace transparente
+            if (bright >= minBright && spread <= maxSpread) {
+              d[i + 3] = 0
+            }
+          }
+
+          octx.putImageData(imageData, 0, 0)
+          ctx.drawImage(off, imgX, imgY)
+        } else {
+          // Fallback: sin contexto, dibujamos normal
+          ctx.drawImage(img, imgX, imgY, scaledWidth, scaledHeight)
+        }
+      } else {
+        ctx.drawImage(img, imgX, imgY, scaledWidth, scaledHeight)
+      }
       ctx.restore()
 
       ctx.textAlign = "center"
@@ -140,7 +185,7 @@ export default function ImageEditorPage() {
         const logoY = canvasSize - logoSize - padding
         const bgPadding = canvasSize * 0.01
 
-        ctx.fillStyle = "#e0e7ff"
+        ctx.fillStyle = backgroundColor
         ctx.fillRect(logoX - bgPadding, logoY - bgPadding, logoSize + bgPadding * 2, logoSize + bgPadding * 2)
 
         ctx.drawImage(logoImg, logoX, logoY, logoSize, logoSize)
@@ -264,7 +309,7 @@ export default function ImageEditorPage() {
         <div className="admin-card">
           <h2 className="admin-card-title">👁️ Vista Previa</h2>
           {uploadedImage ? (
-            <div style={{ border: "4px solid #0f172a", background: "#e0e7ff", padding: "1rem", boxShadow: "4px 4px 0px #1e40af" }}>
+            <div style={{ border: "4px solid #0f172a", background: "#e3e3e2", padding: "1rem", boxShadow: "4px 4px 0px #1e40af" }}>
               <canvas ref={canvasRef} style={{ width: "100%", height: "auto", maxWidth: 600, margin: "0 auto", display: "block", aspectRatio: "1 / 1" }} />
             </div>
           ) : (
