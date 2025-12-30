@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import puppeteer from 'puppeteer'
 
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs'
@@ -10,15 +9,36 @@ export async function GET(request: NextRequest) {
     const baseUrl = searchParams.get('baseUrl') || 'http://localhost:3000'
     const catalogUrl = `${baseUrl}/catalog`
     
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-gpu',
-      ],
-    })
+    // In Vercel (serverless), we need a serverless-compatible Chromium binary.
+    // Locally, we can use full puppeteer for convenience.
+    const isVercel = !!process.env.VERCEL
+    const browser = isVercel
+      ? await (async () => {
+          const puppeteerCore = await import('puppeteer-core')
+          const chromiumMod = await import('@sparticuz/chromium')
+          const chromium = (chromiumMod as any).default ?? chromiumMod
+          const pptr = (puppeteerCore as any).default ?? puppeteerCore
+
+          return pptr.launch({
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath(),
+            headless: "new",
+          })
+        })()
+      : await (async () => {
+          const puppeteerMod = await import('puppeteer')
+          const pptr = (puppeteerMod as any).default ?? puppeteerMod
+          return pptr.launch({
+            headless: "new",
+            args: [
+              '--no-sandbox',
+              '--disable-setuid-sandbox',
+              '--disable-dev-shm-usage',
+              '--disable-gpu',
+            ],
+          })
+        })()
     
     const page = await browser.newPage()
     
@@ -118,7 +138,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error al generar PDF:', error)
     return NextResponse.json(
-      { error: 'Error al generar PDF' },
+      { error: error instanceof Error ? error.message : 'Error al generar PDF' },
       { status: 500 }
     )
   }
