@@ -5,6 +5,9 @@ import DeliverySection from '@/components/DeliverySection'
 import OrderSection from '@/components/OrderSection'
 import Footer from '@/components/Footer'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function CatalogPage() {
   const data = await getCatalogData()
   const activeProducts = data.products.filter(p => p.status === 'active' || p.status === 'offer' || p.status === 'featured')
