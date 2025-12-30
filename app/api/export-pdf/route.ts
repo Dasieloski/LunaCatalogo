@@ -9,36 +9,57 @@ export async function GET(request: NextRequest) {
     const baseUrl = searchParams.get('baseUrl') || 'http://localhost:3000'
     const catalogUrl = `${baseUrl}/catalog`
     
-    // In Vercel (serverless), we need a serverless-compatible Chromium binary.
-    // Locally, we can use full puppeteer for convenience.
-    const isVercel = !!process.env.VERCEL
-    const browser = isVercel
-      ? await (async () => {
-          const puppeteerCore = await import('puppeteer-core')
-          const chromiumMod = await import('@sparticuz/chromium')
-          const chromium = (chromiumMod as any).default ?? chromiumMod
-          const pptr = (puppeteerCore as any).default ?? puppeteerCore
+    // Vercel sometimes lacks shared libs (e.g. libnss3.so) needed to launch Chromium.
+    // Best-practice fallback is a remote Chrome (Browserless) via WebSocket.
+    const browserlessWs =
+      process.env.BROWSERLESS_WS_ENDPOINT ||
+      process.env.BROWSER_WS_ENDPOINT ||
+      ""
+    const browserlessToken = process.env.BROWSERLESS_TOKEN || ""
 
-          return pptr.launch({
-            args: chromium.args,
-            defaultViewport: chromium.defaultViewport,
-            executablePath: await chromium.executablePath(),
-            headless: "new",
-          })
-        })()
-      : await (async () => {
-          const puppeteerMod = await import('puppeteer')
-          const pptr = (puppeteerMod as any).default ?? puppeteerMod
-          return pptr.launch({
-            headless: "new",
-            args: [
-              '--no-sandbox',
-              '--disable-setuid-sandbox',
-              '--disable-dev-shm-usage',
-              '--disable-gpu',
-            ],
-          })
-        })()
+    const isVercel = !!process.env.VERCEL
+    const browser = await (async () => {
+      if (isVercel && browserlessWs) {
+        const puppeteerCore = await import("puppeteer-core")
+        const pptr = (puppeteerCore as any).default ?? puppeteerCore
+
+        let ws = browserlessWs
+        if (browserlessToken && !ws.includes("token=")) {
+          ws += (ws.includes("?") ? "&" : "?") + `token=${encodeURIComponent(browserlessToken)}`
+        }
+
+        return pptr.connect({
+          browserWSEndpoint: ws,
+        })
+      }
+
+      // Otherwise try local launch (works locally, may work on some Vercel runtimes).
+      if (isVercel) {
+        const puppeteerCore = await import("puppeteer-core")
+        const chromiumMod = await import("@sparticuz/chromium")
+        const chromium = (chromiumMod as any).default ?? chromiumMod
+        const pptr = (puppeteerCore as any).default ?? puppeteerCore
+
+        return pptr.launch({
+          args: chromium.args,
+          defaultViewport: chromium.defaultViewport,
+          executablePath: await chromium.executablePath(),
+          headless: "new",
+        })
+      }
+
+      const puppeteerMod = await import("puppeteer")
+      const pptr = (puppeteerMod as any).default ?? puppeteerMod
+      return pptr.launch({
+        headless: "new",
+        args: [
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+          "--disable-dev-shm-usage",
+          "--disable-gpu",
+        ],
+      })
+    })()
     
     const page = await browser.newPage()
     
@@ -125,6 +146,7 @@ export async function GET(request: NextRequest) {
       scale: 1,
     })
     
+    // When using browserless connect(), close() is fine; it closes the remote session.
     await browser.close()
 
     const dateStr = new Date().toISOString().slice(0, 10) // YYYY-MM-DD
@@ -138,7 +160,16 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error al generar PDF:', error)
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Error al generar PDF' },
+      {
+        error:
+          error instanceof Error
+            ? error.message
+            : "Error al generar PDF",
+        hint:
+          process.env.VERCEL
+            ? "En Vercel, configura BROWSERLESS_WS_ENDPOINT (y opcionalmente BROWSERLESS_TOKEN) para generar el PDF sin depender de librerías del sistema."
+            : undefined,
+      },
       { status: 500 }
     )
   }
