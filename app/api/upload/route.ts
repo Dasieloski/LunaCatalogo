@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(bytes)
 
     const supabase = getSupabaseAdminClient()
-    const bucket = process.env.SUPABASE_STORAGE_BUCKET || 'uploads'
+    const bucket = process.env.SUPABASE_STORAGE_BUCKET || 'fotos'
 
     // Generar nombre único
     const timestamp = Date.now()

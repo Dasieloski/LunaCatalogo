@@ -21,6 +21,9 @@ export default function AdminProtectedLayout({ children }: { children: React.Rea
             <Link href="/admin/image-editor" className="admin-nav-link">
               🖼️ Editor
             </Link>
+            <Link href="/admin/images" className="admin-nav-link">
+              🗂️ Imágenes
+            </Link>
             <Link href="/catalog" target="_blank" className="admin-nav-link">
               👁️ Ver Catálogo
             </Link>
