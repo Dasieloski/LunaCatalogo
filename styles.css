@@ -1,0 +1,1145 @@
+/* ============================================
+   PLANTILLA DE CATÁLOGO - LUNA
+   Diseño profesional optimizado para A4 e impresión
+   Versión mejorada con logo y diseño premium
+   ============================================ */
+
+/* Reset y configuración base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variables de color - Paleta azul premium mejorada */
+:root {
+    --primary-blue: #0f2b46;      /* Azul oscuro profundo */
+    --secondary-blue: #1e3a5f;    /* Azul oscuro medio */
+    --medium-blue: #2c5282;       /* Azul medio */
+    --light-blue: #4299e1;        /* Azul claro vibrante */
+    --bright-blue: #63b3ed;       /* Azul brillante */
+    --very-light-blue: #ebf8ff;   /* Azul muy claro para fondos */
+    --pale-blue: #f0f9ff;         /* Azul pálido */
+    --accent-blue: #3182ce;       /* Azul de acento */
+    --accent-gold: #f6ad55;       /* Dorado para acentos */
+    --text-dark: #1a202c;         /* Texto oscuro */
+    --text-medium: #4a5568;       /* Texto medio */
+    --text-light: #718096;        /* Texto claro */
+    --white: #ffffff;
+    --border-color: #cbd5e0;      /* Color de bordes */
+    --shadow-sm: rgba(0, 0, 0, 0.05);
+    --shadow: rgba(0, 0, 0, 0.1);
+    --shadow-md: rgba(0, 0, 0, 0.15);
+    --shadow-lg: rgba(0, 0, 0, 0.2);
+    --shadow-xl: rgba(0, 0, 0, 0.25);
+    --separator: #e2e8f0;         /* Separadores discretos */
+    --gradient-primary: linear-gradient(135deg, #0f2b46 0%, #1e3a5f 50%, #2c5282 100%);
+    --gradient-accent: linear-gradient(135deg, #4299e1 0%, #63b3ed 100%);
+    --gradient-card: linear-gradient(180deg, #ffffff 0%, #f7fafc 100%);
+}
+
+/* ============================================
+   CONFIGURACIÓN BASE - PANTALLA
+   ============================================ */
+body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background: linear-gradient(180deg, #f7fafc 0%, #edf2f7 100%);
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* ============================================
+   ENCABEZADO - MEJORADO
+   ============================================ */
+.header {
+    background: var(--gradient-primary);
+    color: var(--white);
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 20px var(--shadow-lg), 0 0 40px rgba(66, 153, 225, 0.1);
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de brillo sutil en el header */
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: shimmer 8s infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+    50% { transform: translate(-50%, -50%) rotate(180deg); }
+}
+
+.header-content {
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Contenedor del logo */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+    animation: float 3s ease-in-out infinite;
+    background: transparent;
+    display: block;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.company-name {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #ffffff 0%, #ebf8ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.catalog-date {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.95;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.company-tagline {
+    font-size: 1.2rem;
+    font-style: italic;
+    opacity: 0.9;
+    margin-top: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+/* Información de contacto en header */
+.contact-info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.contact-item {
+    font-size: 1rem;
+    opacity: 0.95;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contact-item strong {
+    margin-right: 0.5rem;
+    font-weight: 700;
+}
+
+/* ============================================
+   CONTENIDO PRINCIPAL
+   ============================================ */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem 3rem 2rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin-bottom: 3rem;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 1.5rem;
+    letter-spacing: 1px;
+}
+
+/* Separador elegante mejorado */
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: var(--gradient-accent);
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(66, 153, 225, 0.4);
+}
+
+.section-intro {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    max-width: 900px;
+    margin: 0 auto 3rem auto;
+    line-height: 1.8;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, var(--very-light-blue) 0%, var(--pale-blue) 100%);
+    border-radius: 12px;
+    border-left: 4px solid var(--accent-blue);
+    box-shadow: 0 2px 8px var(--shadow-sm);
+}
+
+/* ============================================
+   GRID DE PRODUCTOS - MEJORADO
+   ============================================ */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+/* Tarjeta de producto mejorada */
+.product-card {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    page-break-inside: avoid;
+    break-inside: avoid;
+    position: relative;
+    overflow: visible;
+    background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px var(--shadow-md);
+    border-color: var(--light-blue);
+}
+
+/* Badge de oferta */
+.product-badge {
+    position: absolute;
+    top: -8px;
+    right: 15px;
+    background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+    color: var(--white);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.4);
+    z-index: 10;
+    border: 2px solid var(--white);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Contenedor de imagen del producto mejorado */
+.product-image-container {
+    width: 100%;
+    height: 200px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid var(--separator);
+    position: relative;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.03);
+}
+
+/* Nombre del producto mejorado */
+.product-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+    letter-spacing: 0.3px;
+}
+
+/* Presentación del producto mejorada */
+.product-presentation {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--separator);
+    letter-spacing: 0.2px;
+}
+
+/* Contenedor de precios mejorado */
+.prices-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--separator);
+}
+
+/* Item de precio individual mejorado */
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0.85rem;
+    background: var(--very-light-blue);
+    border-radius: 6px;
+    border-left: 3px solid var(--accent-blue);
+    transition: all 0.2s ease;
+}
+
+.price-item:hover {
+    background: var(--pale-blue);
+    border-left-color: var(--light-blue);
+}
+
+.price-label {
+    font-size: 0.95rem;
+    color: var(--text-medium);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.price-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    letter-spacing: 0.3px;
+}
+
+/* ============================================
+   SECCIÓN "HAZ TU PEDIDO" - NUEVA
+   ============================================ */
+.order-section {
+    background: var(--gradient-primary);
+    padding: 4rem 2rem;
+    margin-top: 4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.order-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(66, 153, 225, 0.2) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.order-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.order-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.order-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+}
+
+.order-subtitle {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.contact-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 8px 24px var(--shadow-lg);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    backdrop-filter: blur(10px);
+}
+
+.contact-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px var(--shadow-xl);
+    border-color: var(--light-blue);
+}
+
+.contact-card.highlight {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(235, 248, 255, 0.98) 100%);
+    border: 3px solid var(--light-blue);
+    box-shadow: 0 8px 24px var(--shadow-lg), 0 0 20px rgba(66, 153, 225, 0.3);
+}
+
+.contact-card.highlight::before {
+    content: '⭐';
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    font-size: 1.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.contact-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.contact-card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.contact-card-info {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.3px;
+}
+
+.contact-card-hours {
+    font-size: 0.95rem;
+    color: var(--text-medium);
+    font-weight: 500;
+    font-style: italic;
+}
+
+.order-cta {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.cta-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================
+   SECCIÓN DE MENSAJERÍA EN LA HABANA
+   ============================================ */
+.delivery-section.local-delivery {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+    padding: 4rem 2rem;
+    margin-top: 4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ============================================
+   SECCIÓN DE MENSAJERÍA DESDE LA HABANA
+   ============================================ */
+.delivery-section.national-delivery {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    padding: 4rem 2rem;
+    margin-top: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.delivery-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.delivery-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 70% 30%, rgba(66, 153, 225, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.delivery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.delivery-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.delivery-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+}
+
+.delivery-subtitle {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.delivery-info {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+}
+
+.delivery-specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.spec-item {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    color: var(--white);
+    text-align: center;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.spec-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.spec-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.spec-item strong {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.75rem;
+    font-size: 1.3rem;
+    letter-spacing: 0.5px;
+}
+
+.spec-item p {
+    font-size: 1rem;
+    opacity: 0.95;
+    margin-top: 0.5rem;
+    line-height: 1.6;
+}
+
+.delivery-locations {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px var(--shadow-lg);
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.locations-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.locations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.location-item {
+    background: var(--very-light-blue);
+    padding: 1.25rem;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--primary-blue);
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.location-item strong {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+.location-item span {
+    font-size: 0.85rem;
+    color: var(--text-medium);
+    font-weight: 500;
+    font-style: italic;
+}
+
+.location-item:hover {
+    background: var(--light-blue);
+    color: var(--white);
+    border-color: var(--light-blue);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px var(--shadow-md);
+}
+
+.location-item:hover strong,
+.location-item:hover span {
+    color: var(--white);
+}
+
+.locations-note {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--very-light-blue);
+    border-radius: 10px;
+    border-left: 4px solid var(--accent-blue);
+    font-size: 1rem;
+    color: var(--text-medium);
+    line-height: 1.7;
+    text-align: center;
+    font-style: italic;
+}
+
+/* ============================================
+   PIE DE PÁGINA - MEJORADO
+   ============================================ */
+.footer {
+    background: var(--gradient-primary);
+    color: var(--white);
+    text-align: center;
+    padding: 2.5rem;
+    margin-top: 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    box-shadow: 0 -4px 20px var(--shadow-lg);
+}
+
+.footer p {
+    margin: 0.75rem 0;
+    font-size: 1rem;
+    opacity: 0.95;
+    letter-spacing: 0.5px;
+    line-height: 1.7;
+}
+
+.footer p:first-child {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.footer-note {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.95rem;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+/* ============================================
+   ESTILOS PARA IMPRESIÓN Y PDF (A4)
+   ============================================ */
+@media print {
+    @page {
+        size: A4;
+        margin: 15mm 12mm;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    body {
+        background-color: white;
+        padding: 0;
+        margin: 0;
+        font-size: 10pt;
+    }
+
+    .header {
+        background: var(--primary-blue) !important;
+        padding: 1.5rem 1rem;
+        margin-bottom: 1.5rem;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        box-shadow: none;
+    }
+
+    .header::before {
+        display: none;
+    }
+
+    .logo {
+        width: 100px;
+        height: 100px;
+        animation: none;
+    }
+    
+    .product-badge {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.8rem;
+        animation: none;
+    }
+
+    .company-name {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        -webkit-text-fill-color: white;
+        background: none;
+    }
+
+    .catalog-date {
+        font-size: 0.9rem;
+    }
+
+    .company-tagline {
+        font-size: 1rem;
+    }
+
+    .contact-info {
+        gap: 1.5rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+    }
+
+    .contact-item {
+        font-size: 0.85rem;
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .main-content {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .product-card {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid var(--border-color);
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+        border-radius: 8px;
+    }
+
+    .product-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .product-card::before {
+        display: none;
+    }
+
+    .product-image-container {
+        height: 140px;
+        margin-bottom: 0.75rem;
+    }
+
+    .product-name {
+        font-size: 1.2rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .product-presentation {
+        font-size: 0.8rem;
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .prices-container {
+        gap: 0.5rem;
+        padding-top: 0.75rem;
+    }
+
+    .price-item {
+        padding: 0.5rem 0.6rem;
+    }
+
+    .price-item:hover {
+        transform: none;
+    }
+
+    .price-label {
+        font-size: 0.8rem;
+    }
+
+    .price-value {
+        font-size: 0.95rem;
+    }
+
+    .order-section {
+        background: var(--primary-blue) !important;
+        padding: 2rem 1rem;
+        margin-top: 2rem;
+    }
+
+    .order-section::before {
+        display: none;
+    }
+
+    .order-title {
+        font-size: 2rem;
+    }
+
+    .order-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .contact-cards {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .contact-card {
+        padding: 1.5rem;
+        box-shadow: none;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .contact-card:hover {
+        transform: none;
+    }
+
+    .contact-card.highlight::before {
+        display: none;
+    }
+
+    .contact-icon {
+        font-size: 2.5rem;
+    }
+
+    .contact-card-title {
+        font-size: 1.1rem;
+    }
+
+    .contact-card-info {
+        font-size: 1rem;
+    }
+
+    .contact-card-hours {
+        font-size: 0.85rem;
+    }
+
+    .delivery-section.local-delivery {
+        background: #1e3a5f !important;
+        padding: 2rem 1rem;
+        margin-top: 2rem;
+    }
+
+    .delivery-section.national-delivery {
+        background: #1a202c !important;
+        padding: 2rem 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .delivery-section::before {
+        display: none;
+    }
+
+    .delivery-title {
+        font-size: 1.8rem;
+    }
+
+    .delivery-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .delivery-info {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .delivery-specs {
+        grid-template-columns: 1fr;
+    }
+
+    .spec-item {
+        padding: 1.5rem;
+    }
+
+    .spec-icon {
+        font-size: 2rem;
+    }
+
+    .spec-item strong {
+        font-size: 1.1rem;
+    }
+
+    .spec-item p {
+        font-size: 0.9rem;
+    }
+
+    .locations-note {
+        font-size: 0.9rem;
+        padding: 1rem;
+    }
+
+    .locations-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+    }
+
+    .location-item {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .footer {
+        background: var(--primary-blue) !important;
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        box-shadow: none;
+    }
+
+    .footer p {
+        font-size: 0.8rem;
+    }
+
+    .header,
+    .footer,
+    .product-card,
+    .order-section {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .products-grid {
+        orphans: 3;
+        widows: 3;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - DISPOSITIVOS MÓVILES
+   ============================================ */
+@media (max-width: 768px) {
+    .header {
+        padding: 2rem 1.5rem;
+    }
+
+    .logo {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .product-badge {
+        font-size: 0.7rem;
+        padding: 0.35rem 0.9rem;
+        right: 10px;
+    }
+
+    .company-name {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+    }
+
+    .contact-info {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .main-content {
+        padding: 0 1rem 2rem 1rem;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .order-section {
+        padding: 3rem 1.5rem;
+    }
+
+    .order-title {
+        font-size: 2.2rem;
+    }
+
+    .order-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .contact-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .delivery-section.local-delivery,
+    .delivery-section.national-delivery {
+        padding: 3rem 1.5rem;
+    }
+
+    .section-intro {
+        font-size: 1rem;
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .delivery-title {
+        font-size: 2rem;
+    }
+
+    .delivery-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .delivery-info {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .locations-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   TABLETS
+   ============================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .contact-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .delivery-info {
+        grid-template-columns: 1fr;
+    }
+
+    .locations-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ============================================
+   PANTALLAS GRANDES
+   ============================================ */
+@media (min-width: 1400px) {
+    .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
