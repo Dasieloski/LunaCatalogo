@@ -13,7 +13,6 @@ const nextConfig = {
     domains: ['localhost'],
     unoptimized: true,
   },
-  output: 'standalone',
 }
 
 module.exports = nextConfig
