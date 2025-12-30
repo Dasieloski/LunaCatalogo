@@ -10,6 +10,95 @@
 }
 
 /* ============================================
+   LOGIN (AUTH)
+   ============================================ */
+.admin-auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: #1e40af;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-auth-page::before {
+  content: "";
+  position: absolute;
+  top: -140px;
+  left: -140px;
+  width: 320px;
+  height: 320px;
+  background: #3b82f6;
+  opacity: 0.28;
+  transform: rotate(35deg);
+}
+
+.admin-auth-page::after {
+  content: "";
+  position: absolute;
+  bottom: -180px;
+  right: -180px;
+  width: 520px;
+  height: 520px;
+  background: #60a5fa;
+  opacity: 0.18;
+  transform: rotate(-12deg);
+}
+
+.admin-auth-wrapper {
+  width: 100%;
+  max-width: 440px;
+  position: relative;
+  z-index: 1;
+}
+
+.admin-auth-card {
+  background: #ffffff;
+  border: 4px solid #0f172a;
+  box-shadow: 8px 8px 0px #0f172a;
+  padding: 2rem;
+}
+
+.admin-auth-logo {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 1rem auto;
+  background: #2563eb;
+  border: 3px solid #0f172a;
+  box-shadow: 4px 4px 0px #0f172a;
+  font-size: 2rem;
+}
+
+.admin-auth-title {
+  margin: 0;
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.admin-auth-subtitle {
+  margin: 0.25rem 0 1.5rem 0;
+  text-align: center;
+  color: #64748b;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+}
+
+.admin-auth-submit {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ============================================
    NAVEGACIÓN
    ============================================ */
 .admin-nav {

@@ -5,14 +5,13 @@ const DEFAULT_USERNAME = 'admin'
 const DEFAULT_PASSWORD = 'admin123'
 
 export async function verifyCredentials(username: string, password: string): Promise<boolean> {
-  // En producción, esto debería verificar contra una base de datos
-  if (username !== DEFAULT_USERNAME) {
-    return false
-  }
-  
-  // En producción, comparar con hash guardado
-  // Por ahora, comparación simple
-  return password === DEFAULT_PASSWORD
+  const expectedUsername = process.env.ADMIN_USERNAME || DEFAULT_USERNAME
+  const expectedPassword = process.env.ADMIN_PASSWORD || DEFAULT_PASSWORD
+
+  // En producción, esto debería verificar contra una base de datos.
+  // Por ahora, comparación simple (pero configurable por env vars en Vercel).
+  if (username !== expectedUsername) return false
+  return password === expectedPassword
 }
 
 export async function hashPassword(password: string): Promise<string> {

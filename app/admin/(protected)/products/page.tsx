@@ -79,12 +79,8 @@ export default function ProductsPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="bg-white border-4 border-[#0f172a] p-8 shadow-[6px_6px_0px_#1e40af]">
-          <p className="text-xl font-bold text-[#0f172a] uppercase tracking-wide animate-pulse">
-            ⏳ Cargando productos...
-          </p>
-        </div>
+      <div className="admin-card">
+        <p className="admin-card-title">⏳ Cargando productos...</p>
       </div>
     )
   }
@@ -123,3 +119,5 @@ export default function ProductsPage() {
     </>
   )
 }
+
+

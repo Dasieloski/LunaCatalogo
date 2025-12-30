@@ -170,7 +170,7 @@ export default function ImageEditorPage() {
       if (!canvas) return
 
       const link = document.createElement("a")
-      const fileName = productName ? `${productName.toLowerCase().replace(/\s+/g, "-")}-luna.png` : "producto-luna.png"
+      const fileName = productName ? `${productName.toLowerCase().replace(/\\s+/g, "-")}-luna.png` : "producto-luna.png"
       link.download = fileName
       link.href = canvas.toDataURL("image/png", 1.0)
       link.click()
@@ -178,22 +178,16 @@ export default function ImageEditorPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div>
       <h1 className="admin-page-title">🖼️ Editor de Imágenes</h1>
 
-      <div className="grid lg:grid-cols-[400px_1fr] gap-6">
-        {/* Panel de edición */}
-        <div className="admin-card lg:sticky lg:top-24 h-fit">
+      <div style={{ display: "grid", gridTemplateColumns: "minmax(280px, 420px) 1fr", gap: "1.5rem" }}>
+        <div className="admin-card" style={{ position: "sticky", top: "96px", height: "fit-content" }}>
           <h2 className="admin-card-title">📝 Información del Producto</h2>
 
           <div className="admin-form-group">
             <label className="admin-form-label">Subir Imagen</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="admin-form-input cursor-pointer"
-            />
+            <input type="file" accept="image/*" onChange={handleImageUpload} className="admin-form-input" />
           </div>
 
           <div className="admin-form-group">
@@ -252,42 +246,34 @@ export default function ImageEditorPage() {
           </div>
 
           <div className="admin-form-group">
-            <label className="flex items-center gap-3 cursor-pointer p-4 bg-[#eff6ff] border-3 border-[#0f172a] hover:bg-[#dbeafe] transition-colors">
-              <input
-                type="checkbox"
-                checked={available}
-                onChange={(e) => setAvailable(e.target.checked)}
-                className="w-5 h-5 accent-[#2563eb]"
-              />
-              <span className="font-bold text-[#0f172a] uppercase">Disponible Hoy</span>
+            <label className="admin-form-checkbox">
+              <input type="checkbox" checked={available} onChange={(e) => setAvailable(e.target.checked)} />
+              <span style={{ fontWeight: 800, textTransform: "uppercase" }}>Disponible Hoy</span>
             </label>
           </div>
 
           <button
             onClick={downloadImage}
             disabled={!uploadedImage}
-            className={`admin-btn w-full justify-center ${uploadedImage ? "admin-btn-primary" : "admin-btn-secondary opacity-50 cursor-not-allowed"}`}
+            className={`admin-btn admin-auth-submit ${uploadedImage ? "admin-btn-primary" : "admin-btn-secondary"}`}
           >
             {uploadedImage ? "⬇️ Descargar Imagen" : "📷 Sube una imagen primero"}
           </button>
         </div>
 
-        {/* Vista previa */}
         <div className="admin-card">
           <h2 className="admin-card-title">👁️ Vista Previa</h2>
           {uploadedImage ? (
-            <div className="border-4 border-[#0f172a] bg-[#e0e7ff] p-4 shadow-[4px_4px_0px_#1e40af]">
-              <canvas
-                ref={canvasRef}
-                className="w-full h-auto max-w-[600px] mx-auto block"
-                style={{ aspectRatio: "1 / 1" }}
-              />
+            <div style={{ border: "4px solid #0f172a", background: "#e0e7ff", padding: "1rem", boxShadow: "4px 4px 0px #1e40af" }}>
+              <canvas ref={canvasRef} style={{ width: "100%", height: "auto", maxWidth: 600, margin: "0 auto", display: "block", aspectRatio: "1 / 1" }} />
             </div>
           ) : (
-            <div className="border-4 border-dashed border-[#1e40af] bg-[#eff6ff] p-16 text-center">
-              <div className="text-6xl mb-4">📷</div>
-              <p className="text-xl font-bold text-[#1e40af] uppercase tracking-wide">Sube una imagen</p>
-              <p className="text-[#64748b] mt-2 font-medium">
+            <div style={{ border: "4px dashed #1e40af", background: "#eff6ff", padding: "4rem 1.5rem", textAlign: "center" }}>
+              <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>📷</div>
+              <p style={{ fontSize: "1.25rem", fontWeight: 900, color: "#1e40af", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                Sube una imagen
+              </p>
+              <p style={{ color: "#64748b", marginTop: "0.5rem", fontWeight: 600 }}>
                 La imagen se actualizará automáticamente mientras editas
               </p>
             </div>
@@ -297,3 +283,5 @@ export default function ImageEditorPage() {
     </div>
   )
 }
+
+

@@ -67,20 +67,16 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="bg-white border-4 border-[#0f172a] p-8 shadow-[6px_6px_0px_#1e40af]">
-          <p className="text-xl font-bold text-[#0f172a] uppercase tracking-wide animate-pulse">⏳ Cargando...</p>
-        </div>
+      <div className="admin-card">
+        <p className="admin-card-title">⏳ Cargando...</p>
       </div>
     )
   }
 
   if (!data) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="bg-[#fee2e2] border-4 border-[#991b1b] p-8 shadow-[6px_6px_0px_#991b1b]">
-          <p className="text-xl font-bold text-[#991b1b] uppercase tracking-wide">❌ Error al cargar datos</p>
-        </div>
+      <div className="admin-alert admin-alert-error">
+        ❌ Error al cargar datos
       </div>
     )
   }
@@ -130,3 +126,5 @@ export default function AdminDashboard() {
     </>
   )
 }
+
+

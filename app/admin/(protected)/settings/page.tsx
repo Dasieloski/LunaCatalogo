@@ -96,10 +96,8 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="bg-white border-4 border-[#0f172a] p-8 shadow-[6px_6px_0px_#1e40af]">
-          <p className="text-xl font-bold text-[#0f172a] uppercase tracking-wide animate-pulse">⏳ Cargando...</p>
-        </div>
+      <div className="admin-card">
+        <p className="admin-card-title">⏳ Cargando...</p>
       </div>
     )
   }
@@ -146,14 +144,16 @@ export default function SettingsPage() {
         <h2 className="admin-card-title">📞 Información de Contacto</h2>
 
         <div className="admin-form-group">
-          <div className="flex justify-between items-center mb-4">
-            <label className="admin-form-label mb-0">Teléfonos</label>
+          <div className="admin-page-header" style={{ marginBottom: "1rem" }}>
+            <label className="admin-form-label" style={{ margin: 0 }}>
+              Teléfonos
+            </label>
             <button type="button" onClick={addPhone} className="admin-btn admin-btn-success admin-btn-sm">
               ➕ Agregar
             </button>
           </div>
           {(data.contact?.phones || []).map((phone, index) => (
-            <div key={index} className="flex gap-3 mb-3">
+            <div key={index} style={{ display: "flex", gap: "0.75rem", marginBottom: "0.75rem" }}>
               <input
                 type="text"
                 value={phone}
@@ -163,7 +163,7 @@ export default function SettingsPage() {
                   setData({ ...data, contact: { ...data.contact!, phones } })
                 }}
                 placeholder="+53 XXX XXX XXXX"
-                className="admin-form-input flex-1"
+                className="admin-form-input"
               />
               <button
                 type="button"
@@ -180,14 +180,16 @@ export default function SettingsPage() {
         </div>
 
         <div className="admin-form-group">
-          <div className="flex justify-between items-center mb-4">
-            <label className="admin-form-label mb-0">WhatsApps</label>
+          <div className="admin-page-header" style={{ marginBottom: "1rem" }}>
+            <label className="admin-form-label" style={{ margin: 0 }}>
+              WhatsApps
+            </label>
             <button type="button" onClick={addWhatsApp} className="admin-btn admin-btn-success admin-btn-sm">
               ➕ Agregar
             </button>
           </div>
           {(data.contact?.whatsapps || []).map((whatsapp, index) => (
-            <div key={index} className="flex gap-3 mb-3">
+            <div key={index} style={{ display: "flex", gap: "0.75rem", marginBottom: "0.75rem" }}>
               <input
                 type="text"
                 value={whatsapp}
@@ -197,7 +199,7 @@ export default function SettingsPage() {
                   setData({ ...data, contact: { ...data.contact!, whatsapps } })
                 }}
                 placeholder="+53 XXX XXX XXXX"
-                className="admin-form-input flex-1"
+                className="admin-form-input"
               />
               <button
                 type="button"
@@ -217,7 +219,7 @@ export default function SettingsPage() {
       <div className="admin-card">
         <h2 className="admin-card-title">🏍️ Mensajería en La Habana</h2>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="admin-form-grid">
           <div className="admin-form-group">
             <label className="admin-form-label">Capacidad</label>
             <input
@@ -251,17 +253,27 @@ export default function SettingsPage() {
       </div>
 
       <div className="admin-card">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="admin-card-title mb-0">🗺️ Distribución Nacional</h2>
+        <div className="admin-page-header">
+          <h2 className="admin-card-title" style={{ margin: 0, borderBottom: "none", paddingBottom: 0 }}>
+            🗺️ Distribución Nacional
+          </h2>
           <button type="button" onClick={addCity} className="admin-btn admin-btn-success admin-btn-sm">
             ➕ Agregar Ciudad
           </button>
         </div>
 
-        <div className="space-y-4">
+        <div style={{ marginTop: "1rem", display: "grid", gap: "1rem" }}>
           {(data.nationalDelivery?.cities || []).map((city, index) => (
-            <div key={index} className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-4 items-end">
-              <div className="admin-form-group mb-0">
+            <div
+              key={index}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr)) auto",
+                gap: "1rem",
+                alignItems: "end",
+              }}
+            >
+              <div className="admin-form-group" style={{ marginBottom: 0 }}>
                 <label className="admin-form-label">Ciudad</label>
                 <input
                   type="text"
@@ -275,7 +287,7 @@ export default function SettingsPage() {
                   className="admin-form-input"
                 />
               </div>
-              <div className="admin-form-group mb-0">
+              <div className="admin-form-group" style={{ marginBottom: 0 }}>
                 <label className="admin-form-label">Provincia</label>
                 <input
                   type="text"
@@ -304,7 +316,7 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      <div className="flex justify-end">
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <button onClick={handleSave} disabled={saving} className="admin-btn admin-btn-primary">
           {saving ? "⏳ Guardando..." : "💾 Guardar Configuración"}
         </button>
@@ -314,3 +326,5 @@ export default function SettingsPage() {
     </>
   )
 }
+
+
