@@ -4,6 +4,7 @@ import { getSupabaseAdminClient } from "@/lib/supabase-server"
 import { getAdminSessionCookieName, verifyAdminSessionToken } from "@/lib/admin-session"
 
 export const dynamic = "force-dynamic"
+export const runtime = "nodejs"
 
 async function requireAdminAuth() {
   const token = cookies().get(getAdminSessionCookieName())?.value
@@ -57,7 +58,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ items, bucket, prefix, limit, offset })
   } catch (err) {
     console.error("Error /api/images GET:", err)
-    return NextResponse.json({ error: "Error al listar imágenes" }, { status: 500 })
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : "Error al listar imágenes" },
+      { status: 500 },
+    )
   }
 }
 
@@ -83,7 +87,10 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ success: true })
   } catch (err) {
     console.error("Error /api/images DELETE:", err)
-    return NextResponse.json({ error: "Error al eliminar imagen" }, { status: 500 })
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : "Error al eliminar imagen" },
+      { status: 500 },
+    )
   }
 }
 

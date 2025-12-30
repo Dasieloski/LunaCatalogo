@@ -1,10 +1,11 @@
 import { createClient } from '@supabase/supabase-js'
 
 export function getSupabaseAdminClient() {
-  const url = process.env.SUPABASE_URL
+  // Allow either SUPABASE_URL (server) or NEXT_PUBLIC_SUPABASE_URL (common in Next apps).
+  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-  if (!url) throw new Error('Missing env SUPABASE_URL')
+  if (!url) throw new Error('Missing env SUPABASE_URL (or NEXT_PUBLIC_SUPABASE_URL)')
   if (!serviceRoleKey) throw new Error('Missing env SUPABASE_SERVICE_ROLE_KEY')
 
   return createClient(url, serviceRoleKey, {

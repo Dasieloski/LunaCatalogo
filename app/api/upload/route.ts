@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdminClient } from '@/lib/supabase-server'
 
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export async function POST(request: NextRequest) {
   try {
@@ -49,7 +50,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error al subir archivo:', error)
     return NextResponse.json(
-      { error: 'Error al subir archivo' },
+      { error: error instanceof Error ? error.message : 'Error al subir archivo' },
       { status: 500 }
     )
   }
