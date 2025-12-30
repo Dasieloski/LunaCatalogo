@@ -19,21 +19,8 @@ export async function GET(request: NextRequest) {
 
     const isVercel = !!process.env.VERCEL
     const browser = await (async () => {
-      if (isVercel && browserlessWs) {
-        const puppeteerCore = await import("puppeteer-core")
-        const pptr = (puppeteerCore as any).default ?? puppeteerCore
-
-        let ws = browserlessWs
-        if (browserlessToken && !ws.includes("token=")) {
-          ws += (ws.includes("?") ? "&" : "?") + `token=${encodeURIComponent(browserlessToken)}`
-        }
-
-        return pptr.connect({
-          browserWSEndpoint: ws,
-        })
-      }
-
-      // Otherwise try local launch (works locally, may work on some Vercel runtimes).
+      // Primary Vercel strategy (what you asked for):
+      // puppeteer-core + @sparticuz/chromium (serverless Chromium)
       if (isVercel) {
         const puppeteerCore = await import("puppeteer-core")
         const chromiumMod = await import("@sparticuz/chromium")
@@ -44,10 +31,11 @@ export async function GET(request: NextRequest) {
           args: chromium.args,
           defaultViewport: chromium.defaultViewport,
           executablePath: await chromium.executablePath(),
-          headless: "new",
+          headless: chromium.headless,
         })
       }
 
+      // Local dev:
       const puppeteerMod = await import("puppeteer")
       const pptr = (puppeteerMod as any).default ?? puppeteerMod
       return pptr.launch({
@@ -167,7 +155,7 @@ export async function GET(request: NextRequest) {
             : "Error al generar PDF",
         hint:
           process.env.VERCEL
-            ? "En Vercel, configura BROWSERLESS_WS_ENDPOINT (y opcionalmente BROWSERLESS_TOKEN) para generar el PDF sin depender de librerías del sistema."
+            ? "Si sigue fallando con libnss3.so en Vercel, cambia el runtime a Node 22 (AWS_LAMBDA_JS_RUNTIME=nodejs22.x) o usa Browserless."
             : undefined,
       },
       { status: 500 }
